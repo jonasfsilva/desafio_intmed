@@ -2,7 +2,7 @@ from django.db import models
 
 
 CATEGORIAS = (
-    ( 1, 'Processadores')
+    ( 1, 'Processadores'),
     ( 2, 'Memória RAM'),
     ( 3, 'Disco Rígido/SSD'),
     ( 4, 'Placa de Vídeo'),
@@ -25,7 +25,7 @@ class Produto(models.Model):
     categoria = models.PositiveIntegerField(choices=CATEGORIAS, default=1)
     nome = models.CharField(max_length=40)
     descricao = models.TextField()
-    valor = models.DecimalField()
+    valor = models.DecimalField(decimal_places=2, max_digits=5)
 
 
 class Pedido(models.Model):
@@ -37,5 +37,5 @@ class Pedido(models.Model):
 
 class ProdutoEstoque(models.Model):
 
-    produto = models.OneToOneField(Produto)
+    produto = models.OneToOneField(Produto, on_delete=models.PROTECT)
     quantidade = models.PositiveIntegerField(default=1)    
