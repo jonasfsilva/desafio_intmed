@@ -81,6 +81,10 @@ TRELLO_KEY = '404a86a5f8424178c5117b5c1112b686'
 TRELLO_TOKEN = '9581cc3d23e403a957d0811d7c75d87aaaeeeabe8e33bb48d739f90c32352158'
 BOARD_ID = '5b6cde85ba4aa18b4fe3c0c8'
 
+BOARD_LISTS = {
+    1: '5b6d810c1079a857a3f5602f'
+}
+
 
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
