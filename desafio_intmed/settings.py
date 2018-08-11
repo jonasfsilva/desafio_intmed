@@ -37,14 +37,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'autenticacao',
     'rest_framework',
     'loja',
+    'clientes',
     'rest_framework.authtoken',
+    'desafio_intmed',
 ]
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.AllowAny'
+        'rest_framework.permissions.IsAuthenticated'
     ]
 }
 
@@ -89,7 +92,7 @@ BOARD_LISTS = {
     1: '5b6d810c1079a857a3f5602f'
 }
 
-
+AUTH_USER_MODEL = 'autenticacao.User'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 

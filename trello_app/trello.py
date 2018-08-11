@@ -1,14 +1,6 @@
 from trello import TrelloClient 
 from django.conf import settings
 
-# settings.TRELLO_KEY
-# Pedido Realizado 
-# Separação em estoque 
-# Em montagem 
-# Realização de testes 
-# Concluído 
-
-# TODO criar classe e criar metodos
 
 class TrelloExternalApi:
     
@@ -34,6 +26,22 @@ class TrelloExternalApi:
         
         new_card = current_list.add_card(card_name)
         return new_card
+    
+    def make_card_description(self, card, pedido):
+        cliente = pedido.cliente
+        client_text = """ 
+                        \nCliente: 
+                        \nNome: {0}
+                        \nEmail: {1}
+                        \nTelefone: {2}
+                      """.format(cliente.name, cliente.email, cliente.phone)
+
+        produtos_names = pedido.produtos.values_list('nome', flat=True)
+        descricao_text = "\n".join(produtos_names)
         
-
-
+        full_text = "{0}\n{1}\n{2}".format(
+            client_text, 
+            'Componentes:', 
+            descricao_text
+        )
+        card.set_description(full_text)

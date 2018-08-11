@@ -7,12 +7,16 @@ from django.conf import settings
 def atualizar_pedidos(sender, instance, **kwargs):
     """ Faz a adição de card no trello apos a adição. """
 
+    # Cliente nome email telefone
+    # Componentes Nomes
+
     action = kwargs.get('action')
     if action == 'post_add':
         trello = TrelloExternalApi()
         board = trello.get_default_board()
         name = "{0} {1}".format("Pedido", instance.id)
         card = trello.add_card_to_board(instance.status, name)
+        trello.make_card_description(card, instance)
         print('despois de adicionar', card)
     
     

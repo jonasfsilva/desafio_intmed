@@ -19,15 +19,21 @@ class ProdutoSerializer(serializers.ModelSerializer):
 
 class PedidoSerializer(serializers.ModelSerializer):
     
+    valor_total = serializers.SerializerMethodField()
 
     class Meta:
         model = Pedido
         fields = (
             'id',
             'produtos',
+            'cliente',
             'status',
             'data_realizacao',
+            'valor_total',
         )
+    
+    def get_valor_total(self, obj):
+        return obj.get_valor_total()
     
     def validate_produtos(self, attrs):
         msg = 'É necessesario escolher no minimo um produto de cada categoria'
@@ -45,4 +51,3 @@ class PedidoSerializer(serializers.ModelSerializer):
 
     def validate(self, attrs):
         return attrs
-        

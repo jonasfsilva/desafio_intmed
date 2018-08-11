@@ -1,5 +1,7 @@
 from django.db import models
-from django.contrib.auth.models import User
+from autenticacao.models import User
+from clientes.models import Cliente
+from django.db.models import Sum
 
 
 CATEGORIAS = (
@@ -28,16 +30,29 @@ class Produto(models.Model):
     descricao = models.TextField(null=True, blank=True)
     valor = models.DecimalField(decimal_places=2, max_digits=5)
 
+    def __str__(self):
+        return "{0} R$: {1} | Categoria: ({2})".format(
+            self.nome, 
+            self.valor, 
+            dict(CATEGORIAS).get(self.categoria)
+        )
+
 
 class Pedido(models.Model):
     
     produtos = models.ManyToManyField(Produto)
-    usuario = models.ForeignKey(User, on_delete=models.PROTECT)
+    cliente = models.ForeignKey(Cliente, on_delete=models.PROTECT)
     status = models.PositiveIntegerField(choices=STATUS_PEDIDO)
     data_realizacao = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return "{0}|{1}".format(self.status, self.data_realizacao)
+        return "Cliente: {0}|{1}".format(
+            self.cliente, self.status)
+    
+    def get_valor_total(self):
+        valor_result = self.produtos.all().aggregate(
+            valor=Sum('valor'))
+        return valor_result.get('valor', 0.0)
     
     def save(self, *args, **kwargs):
         super(Pedido, self).save(*args, **kwargs)
