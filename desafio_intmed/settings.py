@@ -27,7 +27,7 @@ SECRET_KEY = 'aycu!i_^2cq$13t_!67!6oj20s-p=y@7f_7$uv62^r(qnh0hev'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['desafio-intmed.herokuapp.com', 'localhost']
+ALLOWED_HOSTS = ['ferreirajonasss.pythonanywhere.com', 'desafio-intmed.herokuapp.com', 'localhost']
 
 
 INSTALLED_APPS = [

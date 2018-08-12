@@ -52,9 +52,9 @@ class PedidoApiTestCase(TestCase):
 
     def test_can_create_pedido_to_user_request(self):
         cliente_data = {
-            'email':'cliente@gmail.com',
             'name':'test',
             'phone':'test',
+            'email':'cliente@gmail.com',
         }
         cliente = Cliente.objects.create(**cliente_data)
         produtos = []
