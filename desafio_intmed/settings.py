@@ -63,6 +63,8 @@ MIDDLEWARE = [
 ]
 
 
+LOGIN_REDIRECT_URL = '/api/'
+
 ROOT_URLCONF = 'desafio_intmed.urls'
 
 TEMPLATES = [
