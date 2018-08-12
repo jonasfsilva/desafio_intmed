@@ -2,19 +2,21 @@ import json
 from django.test import TestCase
 from rest_framework.test import APIClient
 from rest_framework.test import APITestCase
+from clientes.models import Cliente
 from loja.models import Pedido
 from loja.models import Produto
 from loja.models import CATEGORIAS
 from rest_framework.authtoken.models import Token
-from django.contrib.auth.models import User
+from autenticacao.models import User
 
 
 class PedidoApiTestCase(TestCase):
     
     def setUp(self):
         user_data = {
-            'username':'admin',
             'email':'admin@gmail.com',
+            'name':'test',
+            'phone':'test',
         }
         self.user = User.objects.create(**user_data)
         self.user.set_password('admin')
@@ -24,6 +26,12 @@ class PedidoApiTestCase(TestCase):
 
     
     def test_can_create_pedido(self):
+        cliente_data = {
+            'email':'cliente@gmail.com',
+            'name':'test',
+            'phone':'test',
+        }
+        cliente = Cliente.objects.create(**cliente_data)
         produtos = []
         for c in list(dict(CATEGORIAS)):
             p = Produto(nome='Processador Celeron', 
@@ -33,7 +41,8 @@ class PedidoApiTestCase(TestCase):
 
         data = {
             'status':1,
-            'produtos':produtos
+            'produtos':produtos,
+            'cliente':cliente.pk
         }
 
         response = self.api_client.post('/api/pedidos/', data)
@@ -41,7 +50,13 @@ class PedidoApiTestCase(TestCase):
         self.assertTrue(Pedido.objects.count())
 
 
-    def test_can_create_pedido_to_logged_user_request(self):
+    def test_can_create_pedido_to_user_request(self):
+        cliente_data = {
+            'email':'cliente@gmail.com',
+            'name':'test',
+            'phone':'test',
+        }
+        cliente = Cliente.objects.create(**cliente_data)
         produtos = []
         for c in list(dict(CATEGORIAS)):
             p = Produto(nome='Processador Celeron', 
@@ -51,12 +66,13 @@ class PedidoApiTestCase(TestCase):
 
         data = {
             'status':1,
-            'produtos':produtos
+            'produtos':produtos,
+            'cliente':cliente.pk
         }
 
         response = self.api_client.post('/api/pedidos/', data)
         content = json.loads(response.content.decode('utf8'))
-        self.assertEqual(Pedido.objects.first().usuario.pk, self.user.pk)
+        self.assertEqual(Pedido.objects.first().cliente.pk, cliente.pk)
         self.assertTrue(Pedido.objects.count())
 
     
