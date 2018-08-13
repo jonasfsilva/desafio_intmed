@@ -29,6 +29,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['ferreirajonasss.pythonanywhere.com', 'desafio-intmed.herokuapp.com', 'localhost']
 
+ADMINS = (
+  ('Jonas', 'jonas.devtest@gmail.com')
+)
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -43,6 +46,7 @@ INSTALLED_APPS = [
     'clientes',
     'rest_framework.authtoken',
     'desafio_intmed',
+    'trello_app',
 ]
 
 REST_FRAMEWORK = {
