@@ -14,8 +14,7 @@ class WebHookTrelloView(APIView):
         """
         return Response([])
 
-    def post(self, request, format=None):
-        raise ValueError('Dont validate')
+    def post(self, request, format=None):        
         """
         POST received
         """
