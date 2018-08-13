@@ -2,7 +2,7 @@
 Gerencia de Loja com boards no trello
 
 ## Url do projeto:
-https://www.pythonanywhere.com/user/ferreirajonasss
+http://ferreirajonasss.pythonanywhere.com/
 
 ## Url do Trello:
 https://trello.com/b/UJtpW2QR/loja-intmed
