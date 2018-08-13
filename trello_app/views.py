@@ -1,3 +1,4 @@
+import json
 from django.shortcuts import render
 from rest_framework.views import APIView
 from loja.permissions import IsAdmin
@@ -39,21 +40,21 @@ class WebHookTrelloView(APIView):
         return Response([])
 
 
-# class WebHookReceivedViewSet(viewsets.ReadOnlyModelViewSet):
-#     """
-#     List all WebHookReceived
-#     """
-#     queryset = WebHookReceived.objects.all()
-#     serializer_class = WebHookSerializer
-#     permission_classes = (IsAdmin,)
+class WebHookReceivedViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+    List all WebHookReceived
+    """
+    queryset = WebHookReceived.objects.all()
+    serializer_class = WebHookSerializer
+    permission_classes = (IsAdmin,)
 
-#     def list(self, request, *args, **kwargs):
-#         queryset = self.filter_queryset(self.get_queryset())
+    def list(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(self.get_queryset())
 
-#         page = self.paginate_queryset(queryset)
-#         if page is not None:
-#             serializer = self.get_serializer(page, many=True)
-#             return self.get_paginated_response(serializer.data)
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
 
-#         serializer = self.get_serializer(queryset, many=True)
-#         return Response(serializer.data)
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
