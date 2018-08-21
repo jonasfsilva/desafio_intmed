@@ -18,7 +18,9 @@ class WebHookTrelloView(APIView):
     
     def get(self, request, format=None):
         """
-        Return 
+        Lista todos os web hooks mantive a URL para demonstração
+        de como estavam sendo salvos os hooks apos as alterações no
+        trello
         """
         queryset = WebHookReceived.objects.all()
         serializer_class = WebHookSerializer
