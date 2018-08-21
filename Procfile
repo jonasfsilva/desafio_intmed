@@ -1,0 +1,1 @@
+web: gunicorn desafio_intmed.wsgi --log-file -
